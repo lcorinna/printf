@@ -6,44 +6,32 @@
 #    By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/08 15:13:25 by lcorinna          #+#    #+#              #
-#    Updated: 2021/12/13 19:57:26 by lcorinna         ###   ########.fr        #
+#    Updated: 2021/12/14 20:02:43 by lcorinna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# NAME = libft.a
+NAME = libftprintf.a
 
-# LIST_1 = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c \
-# ft_isprint.c ft_itoa.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_putchar_fd.c \
-# ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c ft_split.c ft_strchr.c ft_strdup.c ft_striteri.c ft_strjoin.c \
-# ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c \
-# ft_substr.c ft_tolower.c ft_toupper.c
+LIBF = libft.a # i here
 
-# BONUS = ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c ft_lstlast_bonus.c ft_lstadd_back_bonus.c \
-# ft_lstdelone_bonus.c ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c
+PRINTF = to_the_hexadecimal_system.c to_display_on_the_screen.c ft_printf.c
 
-O_FILES = $(LIST_1:.c=.o)
-
-# O_FILES_FOR_BONUS = $(BONUS:.c=.o)
-
-override ALL_O_FILES ?= $(O_FILES) 
+OBJ_FILES = $(PRINTF:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(ALL_O_FILES)
+$(NAME): $(OBJ_FILES)
 	ar rcs $(NAME) $?
 
-%.o: %.c libft.h Makefile
+%.o: %.c libftprintf.h Makefile
 	gcc -Wall -Wextra -Werror -c $< -o $@
 
-bonus:
-#	make ALL_O_FILES="$(O_FILES_FOR_BONUS)" all
-
 clean:
-#	rm -f $(O_FILES) $(O_FILES_FOR_BONUS)
+	rm -f $(OBJ_FILES)
 
 fclean: clean
-#	rm -rf $(NAME)
+	rm -rf $(NAME)
 
-re: fclean $(NAME) # bonus
+re: fclean $(NAME)
 
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean re

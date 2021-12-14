@@ -6,299 +6,285 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 12:05:12 by lcorinna          #+#    #+#             */
-/*   Updated: 2021/12/13 19:52:40 by lcorinna         ###   ########.fr       */
+/*   Updated: 2021/12/14 20:04:15 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdarg.h>
+#include "libftprintf.h"
 
-size_t	ft_strlen(const char *r)
+// size_t	ft_strlen(const char *r) // libft
+// {
+// 	size_t	i;
+
+// 	i = 0;
+// 	while (r[i])
+// 		i++;
+// 	return (i);
+// }
+
+// void	*ft_memset(void *b, int c, size_t len) // libft
+// {
+// 	int		i;
+// 	char	*e;
+
+// 	e = b;
+// 	i = 0;
+// 	while (i < (int) len)
+// 	{
+// 		e[i] = c;
+// 		i++;
+// 	}
+// 	return (e);
+// }
+
+// int	ft_intlen(long long i) // to display on the screen
+// {
+// 	int	size;
+
+// 	size = 0;
+// 	if (i < 0)
+// 	{
+// 		i *= (-1);
+// 		size += 1;
+// 	}
+// 	if (i == 0)
+// 		return (1);
+// 	while (i > 0)
+// 	{
+// 		i /= 10;
+// 		size++;
+// 	}
+// 	return (size);
+// }
+
+// void	ft_putstr(char *s) // to display on the screen
+// {
+// 	while (*s != '\0')
+// 	{
+// 		write(1, s, 1);
+// 		s++;
+// 	}
+// }
+
+// int	ft_putchar_plus_size(char c) // to display on the screen
+// {
+// 	write(1, &c, 1);
+// 	return (1);
+// }
+
+// int	ft_putnbr_plus_size(long long n) // to display on the screen
+// {
+// 	char		count;
+
+// 	if (n < 0)
+// 	{
+// 		write(1, "-", 1);
+// 		n *= -1;
+// 	}
+// 	count = n % 10 + '0';
+// 	if (n / 10 > 0)
+// 	{
+// 		ft_putnbr_plus_size(n / 10);
+// 	}
+// 	write(1, &count, 1);
+// 	n = ft_intlen(n);
+// 	return (n);
+// }
+
+// char	*revers_str(char *str) // to the hexadecimal system
+// {
+// 	char	*rev_str;
+// 	int		i;
+// 	int		j;
+
+// 	i = 0;
+// 	j = 0;
+// 	rev_str = (char *) malloc(sizeof(char) * ft_strlen(str) + 1);
+// 	if (rev_str == NULL)
+// 		return (NULL);
+// 	rev_str = ft_memset(rev_str, '\0', (ft_strlen(str) + 1));
+// 	while (str[i])
+// 		i++;
+// 	i--;
+// 	while (i >= 0)
+// 		rev_str[j++] = str[i--];
+// 	free(str);
+// 	str = NULL;
+// 	return (rev_str);
+// }
+
+// char	*ft_smal_letters(char *str, long long j) // to the hexadecimal system
+// {
+// 	int			i;
+// 	long long	remains;
+
+// 	i = 0;
+// 	while (j > 0)
+// 	{
+// 		remains = j % 16;
+// 		if (remains >= 0 && remains <= 9)
+// 			str[i] = (remains + '0');
+// 		else if (remains >= 10 && remains <= 15)
+// 			str[i] = (remains + 'W');
+// 		i++;
+// 		j = j / 16;
+// 	}
+// 	str[i] = '\0';
+// 	str = revers_str(str);
+// 	return (str);
+// }
+
+// char	*ft_large_letters(char *str, long long j) // to the hexadecimal system
+// {
+// 	int			i;
+// 	long long	remains;
+
+// 	i = 0;
+// 	while (j > 0)
+// 	{
+// 		remains = j % 16;
+// 		if (remains >= 0 && remains <= 9)
+// 			str[i] = (remains + '0');
+// 		else if (remains >= 10 && remains <= 15)
+// 			str[i] = (remains + '7');
+// 		i++;
+// 		j = j / 16;
+// 	}
+// 	str[i] = '\0';
+// 	str = revers_str(str);
+// 	return (str);
+// }
+
+// char	*number_translation(long long j, char c) // to the hexadecimal system
+// {
+// 	char		*str;
+// 	long long	mem;
+// 	int			i;
+
+// 	mem = j;
+// 	i = 1;
+// 	while (mem > 0)
+// 	{
+// 		mem /= 16;
+// 		i++;
+// 	}
+// 	str = (char *) malloc(sizeof(char) * i);
+// 	if (str == NULL)
+// 		return (NULL);
+// 	i = 0;
+// 	if (c == 'x' || c == 'p')
+// 		str = ft_smal_letters(str, j);
+// 	else
+// 		str = ft_large_letters(str, j);
+// 	return (str);
+// }
+
+int	ft_for_cdiu(char c, va_list argpnt, int size_len) // main
 {
-	size_t	i;
-
-	i = 0;
-	while (r[i])
-		i++;
-	return (i);
-}
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	while (*s != '\0')
-	{
-		write(fd, s, 1);
-		s++;
-	}
-}
-
-void	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, 1);
-}
-
-void	ft_putnbr_fd(long long n, int fd)
-{
-	char		count;
-
-	if (n < 0)
-	{
-		write(fd, "-", 1);
-		n *= -1;
-	}
-	count = n % 10 + '0';
-	if (n / 10 > 0)
-	{
-		ft_putnbr_fd(n / 10, fd);
-	}
-	write(fd, &count, 1);
-}
-
-int	ft_intlen(long long i)
-{
-	int	size;
-
-	size = 0;
-	if (i < 0)
-	{
-		i *= (-1);
-		size += 1;
-	}
-	if (i == 0)
-		return (1);
-	while (i > 0)
-	{
-		i /= 10;
-		size++;
-	}
-	return (size);
-}
-
-void	*ft_memset(void *b, int c, size_t len)
-{
-	int		i;
-	char	*e;
-
-	e = b;
-	i = 0;
-	while (i < (int) len)
-	{
-		e[i] = c;
-		i++;
-	}
-	return (e);
-}
-
-char	*revers_str(char *str)
-{
-	char	*rev_str;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	rev_str = (char *) malloc(sizeof(char) * ft_strlen(str) + 1);
-	if (rev_str == NULL)
-		return (NULL);
-	rev_str = ft_memset(rev_str, '\0', (ft_strlen(str) + 1));
-	while (str[i])
-		i++;
-	i--;
-	while (i >= 0)
-		rev_str[j++] = str[i--];
-	free(str);
-	str = NULL;
-	return (rev_str);
-}
-
-char	*number_translation(long long j)
-{
-	char		*str;
-	long long	mem;
-	int			i;
-	char		c;
-	int			remains;
-
-	mem = j;
-	i = 0;
-	while (mem > 0)
-	{
-		mem /= 16;
-		i++;
-	}
-	i++;
-	str = (char *) malloc(sizeof(char) * i);
-	if (str == NULL)
-		return (NULL);
-	i = 0;
-	while (j > 0)
-	{
-		mem = j % 16;
-		if (mem >= 0 && mem <= 9)
-		{
-			c = mem + '0';
-			str[i] = c;
-			i++;
-		}
-		else if (mem >= 10 && mem <= 15)
-		{
-			c = mem + 'W';
-			str[i] = c;
-			i++;
-		}
-		j = j / 16;
-		remains = j;
-	}
-	str[i] = '\0';
-	str = revers_str(str);
-	return (str);
-}
-
-char	*number_translation_X(long long j)
-{
-	char		*str;
-	long long	mem;
-	int			i;
-	char		c;
-	int			remains;
-
-	mem = j;
-	i = 0;
-	while (mem > 0)
-	{
-		mem /= 16;
-		i++;
-	}
-	i++;
-	str = (char *) malloc(sizeof(char) * i);
-	if (str == NULL)
-		return (NULL);
-	i = 0;
-	while (j > 0)
-	{
-		mem = j % 16;
-		if (mem >= 0 && mem <= 9)
-		{
-			c = mem + '0';
-			str[i] = c;
-			i++;
-		}
-		else if (mem >= 10 && mem <= 15)
-		{
-			c = mem + '7';
-			str[i] = c;
-			i++;
-		}
-		j = j / 16;
-		remains = j;
-	}
-	str[i] = '\0';
-	str = revers_str(str);
-	return (str);
-}
-
-int	ft_printf(const char *format, ...)
-{
-	char			*str;
-	int				i;
-	long long		j;
 	unsigned int	u;
-	int				size_len;
+	long long		j;
+
+	if (c == 'c')
+	{
+		j = va_arg(argpnt, int);
+		return (size_len += ft_putchar_plus_size(j));
+	}
+	else if (c == 'd' || c == 'i')
+	{
+		j = (long long) va_arg(argpnt, unsigned int);
+		return (size_len += ft_putnbr_plus_size(j));
+	}
+	else if (c == 'u')
+	{
+		u = va_arg(argpnt, unsigned int);
+		return (size_len += ft_putnbr_plus_size(u));
+	}
+	return (size_len);
+}
+
+int	ft_for_xX(char c, va_list argpnt, int size_len) // main
+{
+	long long		j;
 	char			*str2;
-	char			c;
+
+	j = (long long) va_arg(argpnt, int);
+	str2 = number_translation(j, c);
+	if (str2 == NULL)
+	{
+		write(1, "memory was not allocated", 24);
+		return (-1);
+	}
+	ft_putstr(str2);
+	return (size_len += ft_strlen(str2));
+}
+
+int	ft_for_p(char c, va_list argpnt, int size_len) // main
+{
+	long long		j;
+	char			*str2;
+
+	j = va_arg(argpnt, long long);
+	str2 = number_translation(j, c);
+	if (str2 == NULL)
+	{
+		write(1, "memory was not allocated", 24);
+		return (-1);
+	}
+	write(1, "0x", 2);
+	ft_putstr(str2);
+	return (size_len += ft_strlen(str2) + 2);
+}
+
+int	ft_distribution(char c, va_list argpnt, int size_len) // main
+{
+	char			*str2;
+
+	if (c == 'c' || c == 'd' || c == 'i' || c == 'u')
+		return (size_len = ft_for_cdiu(c, argpnt, size_len));
+	else if (c == 'p')
+		return (size_len = ft_for_p(c, argpnt, size_len));
+	else if (c == 'x' || c == 'X')
+		return (size_len = ft_for_xX(c, argpnt, size_len));
+	else if (c == 's')
+	{
+		str2 = va_arg(argpnt, char *);
+		ft_putstr(str2);
+		return (size_len += ft_strlen(str2));
+	}
+	else if (c == '%')
+		size_len += ft_putchar_plus_size(c);
+	return (size_len);
+}
+
+int	ft_printf(const char *format, ...) // main
+{
+	int				i;
+	int				size_len;
 	va_list			argpnt;
 
-	str = (char *) format;
 	va_start(argpnt, format);
 	i = 0;
 	size_len = 0;
 	if (format == NULL)
 		return (-1);
-	while (str[i])
+	while (format[i])
 	{
-		if (str[i] == '%')
+		if (format[i] == '%')
 		{
 			i++;
-			if (str[i] == 'c') // done
-			{
-				c = (char) va_arg(argpnt, int);
-				ft_putchar_fd(c, 1);
-				size_len += 1;
-			}
-			else if (str[i] == 's') // done
-			{
-				str2 = va_arg(argpnt, char *);
-				ft_putstr_fd(str2, 1);
-				size_len += ft_strlen(str2);
-			}
-			else if (str[i] == 'd') // done
-			{
-				j = (long long) va_arg(argpnt, int);
-				ft_putnbr_fd(j, 1);
-				size_len += ft_intlen(j);
-			}
-			else if (str[i] == 'i') // done
-			{
-				j = (long long) va_arg(argpnt, int);
-				ft_putnbr_fd(j, 1);
-				size_len += ft_intlen(j);
-			}
-			else if (str[i] == 'u') // done
-			{
-				u = va_arg(argpnt, unsigned int);
-				ft_putnbr_fd(u, 1);
-				size_len += ft_intlen(u);
-			}
-			else if (str[i] == 'p') // done
-			{
-				j = va_arg(argpnt, long long);
-				str2 = number_translation(j);
-				if (str2 == NULL)
-				{
-					write(1, "memory was not allocated", 24);
-					return (-1);
-				}
-				write(1, "0x", 2);
-				ft_putstr_fd(str2, 1);
-				size_len += ft_strlen(str2) + 2;
-			}
-			else if (str[i] == 'x') // done
-			{
-				j = (long long) va_arg(argpnt, int);
-				str2 = number_translation(j);
-				ft_putstr_fd(str2, 1);
-				size_len += ft_strlen(str2);
-			}
-			else if (str[i] == 'X') // done
-			{
-				j = (long long) va_arg(argpnt, int);
-				str2 = number_translation_X(j);
-				ft_putstr_fd(str2, 1);
-				size_len += ft_strlen(str2);
-			}
-			else if (str[i] == '%') // done
-			{
-				write(1, &str[i], 1);
-				size_len += 1;
-			}
+			size_len = ft_distribution(format[i], argpnt, size_len);
+			if (size_len < 0)
+				return (-1);
 		}
-		else if (str[i] == '\n')
-		{
-			write(1, "\n", 1);
-			size_len += 1;
-		}
-		else if (str[i] > 31 && str[i] < 127)
-		{
-			write(1, &str[i], 1);
-			size_len += 1;
-		}
+		else if ((format[i] > 31 && format[i] < 127) || format[i] == '\n')
+			size_len += ft_putchar_plus_size(format[i]);
 		i++;
 	}
 	va_end(argpnt);
 	return (size_len);
 }
+
+#include <stdio.h>
 
 int	main(void)
 {
