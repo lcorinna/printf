@@ -6,7 +6,7 @@
 #    By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/08 15:13:25 by lcorinna          #+#    #+#              #
-#    Updated: 2021/12/15 18:29:24 by lcorinna         ###   ########.fr        #
+#    Updated: 2021/12/16 17:03:12 by lcorinna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,10 @@ PRINTF = to_the_hexadecimal_system.c to_display_on_the_screen.c ft_printf.c
 OBJ_FILES = $(PRINTF:.c=.o)
 
 all: $(NAME)
-	cd libft && make all
 
 $(NAME): $(OBJ_FILES)
+	cd libft && make
+	cp libft/libft.a $(NAME)
 	ar rcs $(NAME) $?
 
 %.o: %.c ft_printf.h Makefile
