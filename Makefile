@@ -6,7 +6,7 @@
 #    By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/08 15:13:25 by lcorinna          #+#    #+#              #
-#    Updated: 2021/12/16 17:03:12 by lcorinna         ###   ########.fr        #
+#    Updated: 2021/12/16 19:10:50 by lcorinna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,5 @@ fclean: clean
 	cd libft && make fclean
 
 re: fclean $(NAME)
-	cd libft && make fclean && make
 
 .PHONY: all clean fclean re

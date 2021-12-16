@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 12:05:12 by lcorinna          #+#    #+#             */
-/*   Updated: 2021/12/16 17:07:30 by lcorinna         ###   ########.fr       */
+/*   Updated: 2021/12/16 19:11:25 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ int	ft_printf(const char *format, ...)
 			if (size_len < 0)
 				return (-1);
 		}
-		else if ((format[i] > 31 && format[i] < 127) || format[i] == '\n')
+		else
 			size_len += ft_putchar_plus_size(format[i]);
 		i++;
 	}
